@@ -1,0 +1,32 @@
+{
+  "name": "merge-pdf",
+  "version": "1.0.0",
+  "description": "Monta um PDF unico a partir de uma planilha e certificados, extraindo sua pagina de certificados emitidos em lote e preservando selos de assinatura digital.",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js",
+    "conferir": "node scripts/conferir.js",
+    "analisar": "node scripts/analisar.js",
+    "assinaturas": "node scripts/assinaturas.js"
+  },
+  "keywords": [
+    "pdf",
+    "merge",
+    "certificados",
+    "acc",
+    "aacc",
+    "atpa",
+    "assinatura-digital",
+    "gov-br",
+    "pdf-lib"
+  ],
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^2.4.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

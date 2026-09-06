@@ -1,0 +1,37 @@
+# ============================================================
+# DADOS PESSOAIS — nunca versionar
+# ============================================================
+# Certificados e planilha. Os PDFs de lote contem nome completo
+# de centenas de outros alunos, e ha CPF de terceiros em atestados.
+# Publicar isto vaza dado pessoal de gente que nao consentiu.
+ACC/
+certificados/
+
+# Documento montado e qualquer compactado dele
+/ACC-completo.pdf
+*.rar
+*.zip
+*.7z
+
+# Qualquer PDF ou imagem solta na arvore
+*.pdf
+*.jpg
+*.jpeg
+*.png
+
+# Configuracao real: contem o nome do titular.
+# O template versionado e o config.example.js
+/config.js
+
+# Preenchimento do formulario academico: dados pessoais e totais
+/FORMULARIO.md
+
+# ============================================================
+# Ambiente
+# ============================================================
+node_modules/
+npm-debug.log*
+.env
+.env.*
+.DS_Store
+Thumbs.db
