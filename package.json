@@ -7,7 +7,8 @@
     "build": "node build.js",
     "conferir": "node scripts/conferir.js",
     "analisar": "node scripts/analisar.js",
-    "assinaturas": "node scripts/assinaturas.js"
+    "assinaturas": "node scripts/assinaturas.js",
+    "comprimir": "node scripts/comprimir.js"
   },
   "keywords": [
     "pdf",
@@ -24,7 +25,8 @@
   "type": "commonjs",
   "dependencies": {
     "pdf-lib": "^1.17.1",
-    "pdf-parse": "^2.4.5"
+    "pdf-parse": "^2.4.5",
+    "sharp": "^0.35.4"
   },
   "engines": {
     "node": ">=18"

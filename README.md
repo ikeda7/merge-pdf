@@ -117,6 +117,30 @@ JPG e PNG viram página A4, na orientação da própria imagem.
 O PDF sai com marcadores de dois níveis (categoria → certificado) e abre com o
 painel visível. Não altera nada do conteúdo.
 
+### Comprime para envio
+
+Sistemas acadêmicos costumam ter limite de upload. Certificados chegam como
+imagem **sem perda** (Flate + PNG Predictor) em resolução alta — ótimo para
+arquivamento, exagerado para enviar.
+
+```bash
+node scripts/comprimir.js [qualidade] [dpiMaximo]   # padrão: 82 e 200
+```
+
+Gera um arquivo `-compacto.pdf` **sem tocar no original**. Na prática corta
+cerca de metade do peso sem diferença visível: a resolução é mantida, o que
+muda é o método de compressão. Texto e QR codes de validação continuam nítidos.
+
+Duas salvaguardas:
+
+- Imagem com **transparência real** é preservada intacta. A conversão só
+  acontece quando o canal alfa é inteiramente opaco — nesse caso descartá-lo é
+  idêntico ao original.
+- A troca só é feita quando o resultado é ao menos 10% menor.
+
+Marcadores, selos de assinatura, contagem de páginas e tamanho passam
+intactos — vale conferir depois de comprimir.
+
 ## Diagnóstico
 
 ```bash
@@ -124,6 +148,9 @@ node scripts/analisar.js "termo de busca"   # revela PDFs que são lote de turma
 node scripts/assinaturas.js                 # lista documentos assinados digitalmente
 node scripts/conferir.js                    # titular e carga horária, página a página
 ```
+
+> A saída do `conferir.js` contém dados pessoais — não cole em issue, PR ou
+> qualquer lugar público.
 
 O `conferir.js` é o que se usa antes de enviar: ele lista cada página do
 documento final com o titular detectado e a carga horária declarada, para
@@ -140,7 +167,12 @@ src/
   filtrar.js          localiza as páginas do titular
   normalizar.js       converte para A4 sem destruir anotações
   marcadores.js       índice navegável
-scripts/              diagnóstico
+  predictor.js        desfaz o PNG Predictor de imagens Flate
+scripts/
+  analisar.js         identifica PDFs que são lote de turma
+  assinaturas.js      lista documentos assinados digitalmente
+  conferir.js         confere página a página antes do envio
+  comprimir.js        gera versão compacta para upload
 ```
 
 `src/` é genérico e reaproveitável. `build.js` é a receita específica — é o
