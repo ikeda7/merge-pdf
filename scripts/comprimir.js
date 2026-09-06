@@ -31,8 +31,27 @@ const RAIZ = path.join(__dirname, '..');
 const ENTRADA = path.join(RAIZ, config.arquivoSaida);
 const SAIDA = path.join(RAIZ, config.arquivoSaida.replace(/\.pdf$/i, '-compacto.pdf'));
 
-const QUALIDADE = Number(process.argv[2] ?? 82);
-const DPI_MAXIMO = Number(process.argv[3] ?? 200);
+/**
+ * Le um argumento numerico opcional, recusando lixo.
+ *
+ * Sem isso um argumento invalido vira NaN, nenhuma imagem e convertida e o
+ * script grava por cima da saida anterior um arquivo sem compressao alguma —
+ * silenciosamente.
+ */
+function argumentoNumerico(indice, padrao, minimo, maximo, nome) {
+  const bruto = process.argv[indice];
+  if (bruto === undefined) return padrao;
+
+  const valor = Number(bruto);
+  if (!Number.isFinite(valor) || valor < minimo || valor > maximo) {
+    console.error(`${nome} invalido: ${JSON.stringify(bruto)} (esperado ${minimo}-${maximo})`);
+    process.exit(1);
+  }
+  return valor;
+}
+
+const QUALIDADE = argumentoNumerico(2, 82, 1, 100, 'qualidade');
+const DPI_MAXIMO = argumentoNumerico(3, 200, 50, 1200, 'dpiMaximo');
 
 /** Maior lado de uma pagina A4, em polegadas — base do calculo de DPI. */
 const LADO_A4_POLEGADAS = 841.89 / 72;
